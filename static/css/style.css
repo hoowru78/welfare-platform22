@@ -1,0 +1,67 @@
+/* 접근성 기능용 CSS */
+
+/* 글자 크기 조절 */
+.text-normal {
+    font-size: 1rem;
+}
+
+.text-large {
+    font-size: 1.2rem;
+}
+
+.text-larger {
+    font-size: 1.4rem;
+}
+
+/* 고대비 모드 */
+.high-contrast {
+    filter: contrast(150%) saturate(200%);
+}
+
+.high-contrast button,
+.high-contrast input,
+.high-contrast select {
+    border: 3px solid #000 !important;
+}
+
+.high-contrast .bg-white {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+.high-contrast .text-gray-600 {
+    color: #000000 !important;
+}
+
+/* 포커스 향상 */
+button:focus,
+input:focus,
+select:focus {
+    outline: 3px solid #2563eb !important;
+    outline-offset: 2px !important;
+}
+
+/* 애니메이션 최적화 */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* 모바일 최적화 */
+@media (max-width: 640px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .text-4xl {
+        font-size: 2rem;
+    }
+    
+    .text-xl {
+        font-size: 1.1rem;
+    }
+} 

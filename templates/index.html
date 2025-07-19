@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>남해군 복지추천 시스템 - 학술제</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta name="description" content="남해군 어르신을 위한 맞춤형 복지서비스 추천 시스템">
+    <meta name="keywords" content="남해군, 복지, 추천, 어르신, 복지서비스">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen font-sans">
+    <!-- 접근성 메뉴 -->
+    <div id="accessibility-menu" class="fixed top-4 right-4 z-50 space-y-2">
+        <button id="font-size-btn" class="bg-blue-600 text-white px-3 py-2 rounded-lg shadow-lg hover:bg-blue-700 transition-colors" title="글자 크기 조절">
+            글자 크기
+        </button>
+        <button id="high-contrast-btn" class="bg-gray-600 text-white px-3 py-2 rounded-lg shadow-lg hover:bg-gray-700 transition-colors" title="고대비 모드">
+            고대비
+        </button>
+        <button id="voice-guide-btn" class="bg-green-600 text-white px-3 py-2 rounded-lg shadow-lg hover:bg-green-700 transition-colors" title="음성 안내">
+            음성안내
+        </button>
+    </div>
+
+    <!-- 메인 컨테이너 -->
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- 헤더 -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4" id="main-title">
+                학술제 복지추천 시스템
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                남해군 어르신을 위한 AI 기반 맞춤형 복지서비스 추천
+            </p>
+        </header>
+
+        <!-- 메인 콘텐츠 영역 -->
+        <main class="space-y-8" id="main-content">
+            <!-- 시작 화면 -->
+            <div id="welcome-screen" class="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+                <div class="text-center">
+                    <div class="mb-8">
+                        <div class="w-24 h-24 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mx-auto mb-6 flex items-center justify-center">
+                            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                        어르신을 위한 복지서비스를 찾아드립니다
+                    </h2>
+                    
+                    <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                        간단한 설문을 통해 본인에게 적합한 복지서비스를 추천받으세요.<br>
+                        모든 정보는 안전하게 보호됩니다.
+                    </p>
+                    
+                    <button id="start-btn" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl text-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
+                        설문 시작하기
+                    </button>
+                </div>
+            </div>
+
+            <!-- 사용자 정보 입력 화면 -->
+            <div id="user-info-screen" class="bg-white rounded-2xl shadow-xl p-8 md:p-12 hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">기본 정보 입력</h2>
+                
+                <form id="user-info-form" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-lg font-medium text-gray-700 mb-2">성함</label>
+                        <input type="text" id="name" name="name" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+                               placeholder="성함을 입력해주세요">
+                    </div>
+                    
+                    <div>
+                        <label for="birth-year" class="block text-lg font-medium text-gray-700 mb-2">출생년도</label>
+                        <input type="number" id="birth-year" name="birth_year" required min="1920" max="2020"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+                               placeholder="예: 1950">
+                    </div>
+                    
+                    <div>
+                        <label for="region" class="block text-lg font-medium text-gray-700 mb-2">거주지역</label>
+                        <select id="region" name="region" required 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg">
+                            <option value="">거주지역을 선택해주세요</option>
+                            <option value="남해읍">남해읍</option>
+                            <option value="이동면">이동면</option>
+                            <option value="상주면">상주면</option>
+                            <option value="삼동면">삼동면</option>
+                            <option value="미조면">미조면</option>
+                            <option value="고현면">고현면</option>
+                            <option value="설천면">설천면</option>
+                            <option value="창선면">창선면</option>
+                            <option value="서면">서면</option>
+                            <option value="기타">기타</option>
+                        </select>
+                    </div>
+                    
+                    <div class="flex justify-center pt-6">
+                        <button type="submit" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl text-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
+                            다음
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 설문조사 화면 -->
+            <div id="survey-screen" class="bg-white rounded-2xl shadow-xl p-8 md:p-12 hidden">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4 text-center">복지서비스 설문조사</h2>
+                    <div class="bg-gray-200 rounded-full h-3 mb-6">
+                        <div id="progress-bar" class="bg-gradient-to-r from-blue-600 to-indigo-600 h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                    <p class="text-center text-gray-600">
+                        <span id="current-question">1</span> / <span id="total-questions">5</span>
+                    </p>
+                </div>
+                
+                <div id="question-container">
+                    <!-- 질문이 동적으로 생성됩니다 -->
+                </div>
+                
+                <div class="flex justify-between mt-8">
+                    <button id="prev-btn" class="bg-gray-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-gray-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        이전
+                    </button>
+                    <button id="next-btn" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all" disabled>
+                        다음
+                    </button>
+                </div>
+            </div>
+
+            <!-- 로딩 화면 -->
+            <div id="loading-screen" class="bg-white rounded-2xl shadow-xl p-8 md:p-12 text-center hidden">
+                <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-6"></div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">AI가 추천을 생성하고 있습니다</h2>
+                <p class="text-gray-600">잠시만 기다려주세요...</p>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div id="results-screen" class="bg-white rounded-2xl shadow-xl p-8 md:p-12 hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">맞춤형 복지서비스 추천</h2>
+                <div id="recommendations-container">
+                    <!-- 추천 결과가 동적으로 생성됩니다 -->
+                </div>
+                
+                <div class="text-center mt-8">
+                    <button id="restart-btn" class="bg-gradient-to-r from-gray-600 to-gray-700 text-white px-6 py-3 rounded-xl font-semibold hover:from-gray-700 hover:to-gray-800 transition-all">
+                        다시 시작하기
+                    </button>
+                </div>
+            </div>
+
+            <!-- 오류 화면 -->
+            <div id="error-screen" class="bg-red-50 border border-red-200 rounded-2xl p-8 hidden">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-red-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 13.5C3.498 14.333 4.46 16 6 16z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-red-800 mb-2">오류가 발생했습니다</h3>
+                    <p id="error-message" class="text-red-600 mb-4">서버 연결에 실패했습니다.</p>
+                    <button id="retry-btn" class="bg-red-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-700 transition-colors">
+                        다시 시도
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- 푸터 -->
+        <footer class="text-center mt-16 text-gray-500">
+            <p>&copy; 2024 남해군 복지추천 시스템 - 학술제. 모든 권리 보유.</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html> 

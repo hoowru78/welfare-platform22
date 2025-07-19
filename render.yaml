@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: 학술제-복지추천
+    env: python
+    plan: free
+    buildCommand: pip install --upgrade pip setuptools wheel && pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 2 --threads 2 --timeout 60 app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: WEB_CONCURRENCY
+        value: 2 
